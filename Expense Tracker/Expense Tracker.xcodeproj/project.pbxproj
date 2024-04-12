@@ -27,6 +27,7 @@
 		1166A1D62BC9051B0079AF07 /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1166A1D52BC9051B0079AF07 /* CardView.swift */; };
 		1166A1D82BC90F080079AF07 /* TransactionCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1166A1D72BC90F080079AF07 /* TransactionCardView.swift */; };
 		1166A1DA2BC9159D0079AF07 /* DateFilterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1166A1D92BC9159D0079AF07 /* DateFilterView.swift */; };
+		1166A1FC2BC937CC0079AF07 /* SwipeAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1166A1FB2BC937CC0079AF07 /* SwipeAction.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -52,6 +53,7 @@
 		1166A1D52BC9051B0079AF07 /* CardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
 		1166A1D72BC90F080079AF07 /* TransactionCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionCardView.swift; sourceTree = "<group>"; };
 		1166A1D92BC9159D0079AF07 /* DateFilterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFilterView.swift; sourceTree = "<group>"; };
+		1166A1FB2BC937CC0079AF07 /* SwipeAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SwipeAction.swift; path = ../../../CustomSwipeAction/CustomSwipeAction/Helpers/SwipeAction.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -130,6 +132,7 @@
 				1125A95A2BC8D48200D1D9BC /* Contants.swift */,
 				1166A1D02BC8E7E60079AF07 /* View.Extension.swift */,
 				1166A1D22BC8FE010079AF07 /* Date.Extension.swift */,
+				1166A1FB2BC937CC0079AF07 /* SwipeAction.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -250,6 +253,7 @@
 				1125A9662BC8E39100D1D9BC /* Transaction.swift in Sources */,
 				1166A1D12BC8E7E60079AF07 /* View.Extension.swift in Sources */,
 				1125A96D2BC8E58500D1D9BC /* Search.swift in Sources */,
+				1166A1FC2BC937CC0079AF07 /* SwipeAction.swift in Sources */,
 				1125A95B2BC8D48200D1D9BC /* Contants.swift in Sources */,
 				1125A9642BC8E34F00D1D9BC /* Category.swift in Sources */,
 				1166A1D82BC90F080079AF07 /* TransactionCardView.swift in Sources */,

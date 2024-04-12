@@ -47,7 +47,17 @@ struct Recents: View {
                              
                             // TransactionCardView
                             ForEach(sampleTransactions.filter({ $0.category == selectedCategory.rawValue })) { transaction in
-                                TransactionCardView(transaction: transaction)
+                                SwipeAction(cornerRadius: 10) {
+                                    TransactionCardView(transaction: transaction)
+                                } actions: {
+                                    Action(tint: .red, icon: "trash.fill") {
+                                        withAnimation(.easeInOut) {
+                                            
+                                        }
+                                    }
+                                }
+
+                               
                             }
                             
                             

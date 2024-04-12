@@ -11,6 +11,8 @@
 		1166A1EA2BC91FBF0079AF07 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1166A1E92BC91FBF0079AF07 /* ContentView.swift */; };
 		1166A1EC2BC91FC00079AF07 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1166A1EB2BC91FC00079AF07 /* Assets.xcassets */; };
 		1166A1EF2BC91FC00079AF07 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1166A1EE2BC91FC00079AF07 /* Preview Assets.xcassets */; };
+		1166A1F72BC9229A0079AF07 /* Home.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1166A1F62BC9229A0079AF07 /* Home.swift */; };
+		1166A1FA2BC9368A0079AF07 /* SwipeAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1166A1F92BC9368A0079AF07 /* SwipeAction.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -19,6 +21,8 @@
 		1166A1E92BC91FBF0079AF07 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		1166A1EB2BC91FC00079AF07 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		1166A1EE2BC91FC00079AF07 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		1166A1F62BC9229A0079AF07 /* Home.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Home.swift; sourceTree = "<group>"; };
+		1166A1F92BC9368A0079AF07 /* SwipeAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwipeAction.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -51,6 +55,7 @@
 		1166A1E62BC91FBF0079AF07 /* CustomSwipeAction */ = {
 			isa = PBXGroup;
 			children = (
+				1166A1F82BC936780079AF07 /* Helpers */,
 				1166A1F52BC91FCE0079AF07 /* View */,
 				1166A1E72BC91FBF0079AF07 /* CustomSwipeActionApp.swift */,
 				1166A1E92BC91FBF0079AF07 /* ContentView.swift */,
@@ -71,8 +76,17 @@
 		1166A1F52BC91FCE0079AF07 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				1166A1F62BC9229A0079AF07 /* Home.swift */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		1166A1F82BC936780079AF07 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				1166A1F92BC9368A0079AF07 /* SwipeAction.swift */,
+			);
+			path = Helpers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -146,6 +160,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				1166A1EA2BC91FBF0079AF07 /* ContentView.swift in Sources */,
+				1166A1F72BC9229A0079AF07 /* Home.swift in Sources */,
+				1166A1FA2BC9368A0079AF07 /* SwipeAction.swift in Sources */,
 				1166A1E82BC91FBF0079AF07 /* CustomSwipeActionApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

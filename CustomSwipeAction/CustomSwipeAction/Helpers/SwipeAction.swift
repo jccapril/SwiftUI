@@ -113,7 +113,7 @@ struct SwipeAction<Content: View>: View {
             .rotationEffect(.init(degrees: direction == .leading ? 180 : 0))
         }
         .allowsHitTesting(isEnable)
-        .transition(CustomTransition())
+//        .transition(CustomTransition())
         
     }
     

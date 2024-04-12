@@ -26,7 +26,7 @@ struct TransactionCardView: View {
                     .font(.caption)
                     .foregroundStyle(.primary.secondary)
                 
-                Text(transaction.dateAdded.format(format: "dd MMM yyyy"))
+                Text(transaction.dateAdded.format(format: "yyyy-MM-dd"))
                     .font(.caption2)
                     .foregroundStyle(.gray)
             }

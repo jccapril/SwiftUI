@@ -14,6 +14,7 @@ struct Recents: View {
     @State private var startDate: Date = .now.startOfMonth
     @State private var endDate: Date = .now.endOfMonth
     @State private var selectedCategory: Category = .expense
+    @State private var showDateFilterView: Bool = false
     /// For Animation
     @Namespace private var animation
     
@@ -29,9 +30,9 @@ struct Recents: View {
                         Section {
                             // Date Filter Button
                             Button(action: {
-                                
+                                showDateFilterView = true
                             }, label: {
-                                Text("\(startDate.format(format: "dd - MMM yy")) to \(endDate.format(format: "dd -  MMM yy"))")
+                                Text("\(startDate.format(format: "yyyy-MM-dd")) ~ \(endDate.format(format: "yyyy-MM-dd"))")
                                     .font(.caption2)
                                     .foregroundStyle(.gray )
                             })
@@ -58,7 +59,22 @@ struct Recents: View {
                     .padding(15)
                 }
                 .background(.gray.opacity(0.15))
+                .blur(radius: showDateFilterView ? 8 : 0)
+                .disabled(showDateFilterView)
             }
+            .overlay {
+                if showDateFilterView {
+                    DateFilterView(start: startDate, end: endDate, onSubmit: { start, end in
+                        startDate = start
+                        endDate = end
+                        showDateFilterView = false
+                    }, onClose: {
+                        showDateFilterView = false
+                    })
+                    .transition(.move(edge: .leading ))
+                }
+            }
+            .animation(.snappy , value: showDateFilterView )
            
         }
     } 
@@ -155,6 +171,7 @@ struct Recents: View {
         .background(.gray.opacity(0.15), in: .capsule)
         .padding(.top, 5)
     }
+    
 }
 
 #Preview {

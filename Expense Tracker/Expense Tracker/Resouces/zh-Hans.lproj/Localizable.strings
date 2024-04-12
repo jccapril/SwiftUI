@@ -1,0 +1,20 @@
+/* 
+  Localizable.strings
+  Expense Tracker
+
+  Created by Jason on 2024/4/12.
+  
+*/
+"What's New in the\nExpense Tracker" = "Expense Tracker 的新功能";
+"Transactions" = "交易";
+"Keep track of your earnings and expenses." = "跟踪您的收入和支出。";
+"Visual Charts" = "可视图表";
+"View your transactions using eye-catching graphic representation." = "使用引人注目的图形表示查看您的交易。";
+"Advance Filters" = "高级过滤器";
+"Find the expenses you want by advance search and filtering." = "通过预先搜索和过滤找到您想要的费用。";
+"Continue" = "继续";
+"Recents" = "最近";
+"Search" = "搜索";
+"Filters" = "搜索";
+"Charts" = "图表";
+"Settings" = "设置";

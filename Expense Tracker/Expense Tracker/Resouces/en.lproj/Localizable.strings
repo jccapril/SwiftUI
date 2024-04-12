@@ -1,0 +1,20 @@
+/* 
+  Localizable.strings
+  Expense Tracker
+
+  Created by Jason on 2024/4/12.
+  
+*/
+"What's New in the\nExpense Tracker" = "What's New in the\nExpense Tracker";
+"Transactions" = "Transactions";
+"Keep track of your earnings and expenses." = "Keep track of your earnings and expenses.";
+"Visual Charts" = "Visual Charts";
+"View your transactions using eye-catching graphic representation." = "View your transactions using eye-catching graphic representation.";
+"Advance Filters" = "Advance Filters";
+"Find the expenses you want by advance search and filtering." = "Find the expenses you want by advance search and filtering.";
+"Continue" = "Continue";
+"Recents" = "Recents";
+"Search" = "Search";
+"Filters" = "Filters";
+"Charts" = "Charts";
+"Settings" = "Settings";

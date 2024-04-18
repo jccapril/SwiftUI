@@ -23,7 +23,7 @@ struct LockView<Content: View>: View {
     @State private var isUnlocked: Bool = false
     @State private var noBiometricAccess: Bool = false
     /// Lock Context
-    let context = LAContext()
+    private let context = LAContext()
     /// Scene Phase
     @Environment(\.scenePhase) private var phase
     var body: some View {

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1107477F2BD0D08D000EF6D6 /* NewExpenseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1107477E2BD0D08D000EF6D6 /* NewExpenseView.swift */; };
 		1125A9482BC8D24D00D1D9BC /* Expense_TrackerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1125A9472BC8D24D00D1D9BC /* Expense_TrackerApp.swift */; };
 		1125A94A2BC8D24D00D1D9BC /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1125A9492BC8D24D00D1D9BC /* ContentView.swift */; };
 		1125A94C2BC8D24E00D1D9BC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1125A94B2BC8D24E00D1D9BC /* Assets.xcassets */; };
@@ -32,6 +33,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1107477E2BD0D08D000EF6D6 /* NewExpenseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewExpenseView.swift; sourceTree = "<group>"; };
 		1125A9442BC8D24D00D1D9BC /* Expense Tracker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Expense Tracker.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		1125A9472BC8D24D00D1D9BC /* Expense_TrackerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Expense_TrackerApp.swift; sourceTree = "<group>"; };
 		1125A9492BC8D24D00D1D9BC /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -113,6 +115,7 @@
 				1166A1D42BC905100079AF07 /* Helpers */,
 				1125A9692BC8E56900D1D9BC /* TabViews */,
 				1125A9572BC8D29C00D1D9BC /* IntroScreen.swift */,
+				1107477E2BD0D08D000EF6D6 /* NewExpenseView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -250,6 +253,7 @@
 				1166A1DA2BC9159D0079AF07 /* DateFilterView.swift in Sources */,
 				1125A9582BC8D29C00D1D9BC /* IntroScreen.swift in Sources */,
 				1125A9622BC8DD8F00D1D9BC /* Tab.swift in Sources */,
+				1107477F2BD0D08D000EF6D6 /* NewExpenseView.swift in Sources */,
 				1166A1D32BC8FE010079AF07 /* Date.Extension.swift in Sources */,
 				1125A9712BC8E59200D1D9BC /* Settings.swift in Sources */,
 				1125A9482BC8D24D00D1D9BC /* Expense_TrackerApp.swift in Sources */,

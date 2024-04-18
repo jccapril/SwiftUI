@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import SwiftData
 
 struct Recents: View {
     /// User Properties
@@ -17,7 +18,7 @@ struct Recents: View {
     @State private var showDateFilterView: Bool = false
     /// For Animation
     @Namespace private var animation
-    
+    @Query(sort: [SortDescriptor(\Transaction.dateAdded, order: .reverse)], animation: .snappy) private var transactions: [Transaction ]
     var body: some View {
         GeometryReader {
             /// For Animation Purpose
@@ -46,20 +47,22 @@ struct Recents: View {
                                 .padding(.bottom, 10)
                              
                             // TransactionCardView
-                            ForEach(sampleTransactions.filter({ $0.category == selectedCategory.rawValue })) { transaction in
-                                SwipeAction(cornerRadius: 10) {
-                                    TransactionCardView(transaction: transaction)
-                                } actions: {
-                                    Action(tint: .red, icon: "trash.fill") {
-                                        withAnimation(.easeInOut) {
-                                            
-                                        }
-                                    }
-                                }
-
-                               
+                            ForEach(transactions.filter({ $0.category == selectedCategory.rawValue })) {
+                                TransactionCardView(transaction: $0)
                             }
+//                            ForEach(sampleTransactions.filter({ $0.category == selectedCategory.rawValue })) { transaction in
+//                                SwipeAction(cornerRadius: 10) {
+//                                    TransactionCardView(transaction: transaction)
+//                                } actions: {
+//                                    Action(tint: .red, icon: "trash.fill") {
+//                                        withAnimation(.easeInOut) {
+//                                            
+//                                        }
+//                                    }
+//                                }
+//                            }
                             
+                           // TransactionCardView(transaction: transaction)
                             
                         } header: {
                             HeaderView(size)

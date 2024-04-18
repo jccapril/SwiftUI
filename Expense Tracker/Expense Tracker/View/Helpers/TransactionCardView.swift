@@ -41,6 +41,8 @@ struct TransactionCardView: View {
         .background(.background, in: .rect(cornerRadius: 10))
     }  
 }
+
+ 
  #Preview {
-    TransactionCardView(transaction:sampleTransactions.first!)
+    ContentView() 
 }

@@ -48,7 +48,7 @@ class Toast {
     static let shared = Toast()
     fileprivate var toasts : [ToastItem] = []
     
-    func present(title: String, symbol: String? = nil, tint: Color = .primary, isUserInteractionEnabled: Bool = false, duration: ToastDuration = .medium )  {
+    func present(title: String, symbol: String? = nil, tint: Color = .primary, isUserInteractionEnabled: Bool = false, duration: ToastDuration = .short )  {
         toasts.append(.init(title: title, symbol: symbol, tint: tint, isUserInteractionEnabled: isUserInteractionEnabled, duration: duration))
     }
 }
@@ -62,7 +62,7 @@ struct ToastItem: Identifiable {
     var isUserInteractionEnabled: Bool
     
     /// Duration
-    var duration: ToastDuration = .medium
+    var duration: ToastDuration = .short
 }
 
 enum ToastDuration: CGFloat {
@@ -91,6 +91,9 @@ fileprivate struct ToastGroup: View {
 fileprivate struct ToastView: View {
     var size: CGSize
     var item: ToastItem
+    /// View's Properties
+    @State private var animateIn: Bool = false
+    @State private var animateOut: Bool = false
     var body: some View {
         HStack(spacing: 10) {
             
@@ -111,5 +114,33 @@ fileprivate struct ToastView: View {
             in: .capsule
         )
         .contentShape(.capsule)
+        .offset(y: animateIn ? 0 : 150)
+        .offset(y: !animateOut ? 0 : 150)
+        .task {
+            guard !animateIn else { return }
+            withAnimation(.snappy) {
+                animateIn = true
+            }
+            
+            try? await Task.sleep(for: .seconds(item.duration.rawValue))
+            
+            removeToast()
+        }
+    }
+    
+    func removeToast() {
+        guard !animateOut else { return }
+        withAnimation(.snappy, completionCriteria: .logicallyComplete) {
+            animateOut = true
+        } completion: {
+              
+        }
+    }
+}
+
+
+#Preview {
+    RootView {
+        ContentView()
     }
 }

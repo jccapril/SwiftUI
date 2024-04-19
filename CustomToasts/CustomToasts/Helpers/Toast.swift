@@ -46,15 +46,15 @@ fileprivate class PassthroughWindow: UIWindow {
 @Observable
 class Toast {
     static let shared = Toast()
-    fileprivate var toasts : [ToastModel] = []
+    fileprivate var toasts : [ToastItem] = []
     
-    func present(title: String, symbol: String?, tint: Color = .primary, isUserInteractionEnabled: Bool = false, duration: ToastDuration = .medium )  {
+    func present(title: String, symbol: String? = nil, tint: Color = .primary, isUserInteractionEnabled: Bool = false, duration: ToastDuration = .medium )  {
         toasts.append(.init(title: title, symbol: symbol, tint: tint, isUserInteractionEnabled: isUserInteractionEnabled, duration: duration))
     }
 }
 
-struct ToastModel: Identifiable {
-    let id: UUID = .init() 
+struct ToastItem: Identifiable {
+    let id: UUID = .init()
     /// Custom Properties
     var title: String
     var symbol: String?
@@ -78,10 +78,38 @@ fileprivate struct ToastGroup: View {
             let size = $0.size
             let safeArea = $0.safeAreaInsets
             ZStack {
-                Text("\(model.toasts.count )")
+                ForEach(model.toasts) {
+                    ToastView(size: size, item: $0)
+                }
             }
             .padding(.bottom, safeArea.top == .zero ? 15 : 10)
             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .bottom)
         }
+    }
+}
+
+fileprivate struct ToastView: View {
+    var size: CGSize
+    var item: ToastItem
+    var body: some View {
+        HStack(spacing: 10) {
+            
+            if let symbol = item.symbol {
+                Image(systemName: symbol)
+                    .font(.title3)
+            }
+
+            Text(item.title)
+        }
+        .foregroundStyle(item.tint)
+        .padding(.vertical, 8)
+        .padding(.horizontal, 15)
+        .background(
+            .background
+                .shadow(.drop(color: .primary.opacity(0.06), radius: 5, x: 5, y: 5))
+                .shadow(.drop(color: .primary.opacity(0.06), radius: 8, x: -5, y: -5)),
+            in: .capsule
+        )
+        .contentShape(.capsule)
     }
 }

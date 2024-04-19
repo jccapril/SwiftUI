@@ -43,14 +43,44 @@ fileprivate class PassthroughWindow: UIWindow {
     }
 }
 
+@Observable
+class Toast {
+    static let shared = Toast()
+    fileprivate var toasts : [ToastModel] = []
+    
+    func present(title: String, symbol: String?, tint: Color = .primary, isUserInteractionEnabled: Bool = false, duration: ToastDuration = .medium )  {
+        toasts.append(.init(title: title, symbol: symbol, tint: tint, isUserInteractionEnabled: isUserInteractionEnabled, duration: duration))
+    }
+}
+
+struct ToastModel: Identifiable {
+    let id: UUID = .init() 
+    /// Custom Properties
+    var title: String
+    var symbol: String?
+    var tint: Color
+    var isUserInteractionEnabled: Bool
+    
+    /// Duration
+    var duration: ToastDuration = .medium
+}
+
+enum ToastDuration: CGFloat {
+    case short  = 1.0
+    case medium = 2.0
+    case long   = 3.5
+}
+
 fileprivate struct ToastGroup: View {
+    var model = Toast.shared
     var body: some View {
         GeometryReader {
             let size = $0.size
             let safeArea = $0.safeAreaInsets
             ZStack {
-                
+                Text("\(model.toasts.count )")
             }
+            .padding(.bottom, safeArea.top == .zero ? 15 : 10)
             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .bottom)
         }
     }

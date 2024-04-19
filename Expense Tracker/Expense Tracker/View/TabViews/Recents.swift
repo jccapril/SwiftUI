@@ -47,8 +47,13 @@ struct Recents: View {
                                 .padding(.bottom, 10)
                              
                             // TransactionCardView
-                            ForEach(transactions.filter({ $0.category == selectedCategory.rawValue })) {
-                                TransactionCardView(transaction: $0)
+                            ForEach(transactions.filter({ $0.category == selectedCategory.rawValue })) { transaction in
+                                NavigationLink {
+                                    NewExpenseView(editTransaction: transaction )
+                                } label: {
+                                    TransactionCardView(transaction: transaction)
+                                }
+
                             }
 //                            ForEach(sampleTransactions.filter({ $0.category == selectedCategory.rawValue })) { transaction in
 //                                SwipeAction(cornerRadius: 10) {

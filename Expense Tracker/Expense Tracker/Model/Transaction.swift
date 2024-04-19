@@ -29,9 +29,20 @@ class Transaction  {
     }
     
     /// Extracting Color Value From tintColor String
+    @Transient
     var color: Color {
         tints.first(where: { $0.color == tintColor })?.value ?? appTint
     }
+    
+    @Transient
+    var tint: TintColor? {
+        tints.first(where: { $0.color == tintColor })
+    }
+    
+    @Transient 
+    var rawCategory: Category? {
+        Category.allCases.first(where: { category == $0.rawValue  })
+    } 
 }
 
 /// Sample Transactions For UI Bind

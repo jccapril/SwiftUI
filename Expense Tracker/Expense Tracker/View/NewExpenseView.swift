@@ -11,6 +11,7 @@ struct NewExpenseView: View {
     /// Env Properties
     @Environment(\.modelContext) private var context
     @Environment(\.dismiss) private var dismiss
+    var editTransaction: Transaction?
     /// View's Properties
     @State private var title: String = ""
     @State private var remarks: String = ""
@@ -18,7 +19,7 @@ struct NewExpenseView: View {
     @State private var dateAdded: Date = .now
     @State private var category: Category = .expense
     /// Radom Tint
-    var tint: TintColor = tints.randomElement()!
+    @State private  var tint: TintColor = tints.randomElement()!
     var body: some View {
           ScrollView(.vertical) {
             VStack(spacing: 15) {
@@ -92,13 +93,36 @@ struct NewExpenseView: View {
                     .tint(appTint)
             }
         }
+        .onAppear(perform: {
+            if let editTransaction {
+                title = editTransaction.title
+                remarks = editTransaction.remarks
+                amount = editTransaction.amount
+                dateAdded = editTransaction.dateAdded
+                if let category = editTransaction.rawCategory {
+                    self.category = category
+                }
+                if let tint = editTransaction.tint {
+                    self.tint = tint
+                }
+            }
+        })
     }
     
     /// Save Data
     func save() {
         // Saving Item to SwiftData
-        let transcation = Transaction(title: title, remarks: remarks, amount: amount, dateAdded: dateAdded, category: category, tintColor: tint)
-        context.insert(transcation)
+        if let editTransaction {
+            editTransaction.title = title
+            editTransaction.dateAdded = dateAdded
+            editTransaction.remarks = remarks
+            editTransaction.amount = amount
+            editTransaction.category = category.rawValue 
+        }else {
+            let transcation = Transaction(title: title, remarks: remarks, amount: amount, dateAdded: dateAdded, category: category, tintColor: tint)
+            context.insert(transcation)
+        }
+       
         // Dimissing View
         dismiss() 
     }

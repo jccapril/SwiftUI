@@ -78,13 +78,23 @@ fileprivate struct ToastGroup: View {
             let size = $0.size
             let safeArea = $0.safeAreaInsets
             ZStack {
-                ForEach(model.toasts) {
-                    ToastView(size: size, item: $0)
+                ForEach(model.toasts) { toast in
+                    ToastView(size: size, item: toast)
+                        .animation(.easeInOut) { view in
+                            view
+                                .offset(y: offsetY(toast))
+                        }
                 }
             }
             .padding(.bottom, safeArea.top == .zero ? 15 : 10)
             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .bottom)
         }
+    }
+    
+    func offsetY(_ item: ToastItem) -> CGFloat {
+        let index = CGFloat(model.toasts.firstIndex(where: { $0.id == item.id }) ?? 0)
+        let totalCount = CGFloat(model.toasts.count - 1)
+        return (totalCount - index) >= 2 ? -20 : ((totalCount - index) * -10)
     }
 }
 
@@ -138,10 +148,8 @@ fileprivate struct ToastView: View {
             
             removeToast()
         }
-    }
-    
-    var offsetY: CGFloat {
-          return 0  
+        /// Limit Size
+        .frame(maxWidth: size.width * 0.7)
     }
     
     func removeToast() {

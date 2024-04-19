@@ -114,6 +114,18 @@ fileprivate struct ToastView: View {
             in: .capsule
         )
         .contentShape(.capsule)
+        .gesture (
+            DragGesture(minimumDistance: 0)
+                .onEnded { value in
+                    let endY = value.translation.height
+                    let velocityY = value.velocity.height
+                    
+                    if (endY + velocityY) > 100 {
+                        /// Remove Toast
+                        removeToast()
+                    }
+                }
+        )
         .offset(y: animateIn ? 0 : 150)
         .offset(y: !animateOut ? 0 : 150)
         .task {
@@ -128,13 +140,21 @@ fileprivate struct ToastView: View {
         }
     }
     
+    var offsetY: CGFloat {
+          return 0  
+    }
+    
     func removeToast() {
         guard !animateOut else { return }
         withAnimation(.snappy, completionCriteria: .logicallyComplete) {
             animateOut = true
         } completion: {
-              
+            removeToastItem()
         }
+    }
+    
+    func removeToastItem() {
+        Toast.shared.toasts.removeAll(where: { $0.id == item.id  })
     }
 }
 

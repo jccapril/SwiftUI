@@ -49,7 +49,10 @@ class Toast {
     fileprivate var toasts : [ToastItem] = []
     
     func present(title: String, symbol: String? = nil, tint: Color = .primary, isUserInteractionEnabled: Bool = false, duration: ToastDuration = .short )  {
-        toasts.append(.init(title: title, symbol: symbol, tint: tint, isUserInteractionEnabled: isUserInteractionEnabled, duration: duration))
+        withAnimation(.snappy) {
+            toasts.append(.init(title: title, symbol: symbol, tint: tint, isUserInteractionEnabled: isUserInteractionEnabled, duration: duration))
+        }
+       
     }
 }
 
@@ -80,10 +83,9 @@ fileprivate struct ToastGroup: View {
             ZStack {
                 ForEach(model.toasts) { toast in
                     ToastView(size: size, item: toast)
-                        .animation(.easeInOut) { view in
-                            view
-                                .offset(y: offsetY(toast))
-                        }
+                        .scaleEffect(scale(toast))
+                        .offset(y: offsetY(toast))
+                        .zIndex(Double(model.toasts.firstIndex(where: { $0.id == toast.id }) ?? 0))
                 }
             }
             .padding(.bottom, safeArea.top == .zero ? 15 : 10)
@@ -96,14 +98,19 @@ fileprivate struct ToastGroup: View {
         let totalCount = CGFloat(model.toasts.count - 1)
         return (totalCount - index) >= 2 ? -20 : ((totalCount - index) * -10)
     }
+    
+    func scale(_ item: ToastItem) -> CGFloat {
+        let index = CGFloat(model.toasts.firstIndex(where: { $0.id == item.id }) ?? 0)
+        let totalCount = CGFloat(model.toasts.count - 1)
+        return 1.0 - ((totalCount - index) >= 2 ? 0.2 : ((totalCount - index) * 0.1))
+    }
 }
 
 fileprivate struct ToastView: View {
     var size: CGSize
     var item: ToastItem
     /// View's Properties
-    @State private var animateIn: Bool = false
-    @State private var animateOut: Bool = false
+    @State private var delayTask: DispatchWorkItem?
     var body: some View {
         HStack(spacing: 10) {
             
@@ -127,6 +134,7 @@ fileprivate struct ToastView: View {
         .gesture (
             DragGesture(minimumDistance: 0)
                 .onEnded { value in
+                    guard item.isUserInteractionEnabled else { return  }
                     let endY = value.translation.height
                     let velocityY = value.velocity.height
                     
@@ -136,33 +144,28 @@ fileprivate struct ToastView: View {
                     }
                 }
         )
-        .offset(y: animateIn ? 0 : 150)
-        .offset(y: !animateOut ? 0 : 150)
-        .task {
-            guard !animateIn else { return }
-            withAnimation(.snappy) {
-                animateIn = true
+        .onAppear {
+            guard delayTask == nil else { return }
+            delayTask = .init(block: {
+                removeToast()
+            })
+            
+            if let delayTask {
+                DispatchQueue.main.asyncAfter(deadline: .now() + item.duration.rawValue, execute: delayTask)
             }
-            
-            try? await Task.sleep(for: .seconds(item.duration.rawValue))
-            
-            removeToast()
         }
         /// Limit Size
         .frame(maxWidth: size.width * 0.7)
+        .transition(.offset(y: 150))
     }
     
     func removeToast() {
-        guard !animateOut else { return }
-        withAnimation(.snappy, completionCriteria: .logicallyComplete) {
-            animateOut = true
-        } completion: {
-            removeToastItem()
+        if let delayTask {
+            delayTask.cancel()
         }
-    }
-    
-    func removeToastItem() {
-        Toast.shared.toasts.removeAll(where: { $0.id == item.id  })
+        withAnimation(.snappy) {
+            Toast.shared.toasts.removeAll(where: { $0.id == item.id  })
+        }
     }
 }
 

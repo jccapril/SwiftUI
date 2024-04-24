@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct NewExpenseView: View {
+struct TransactionView: View {
     /// Env Properties
     @Environment(\.modelContext) private var context
     @Environment(\.dismiss) private var dismiss
@@ -91,27 +91,27 @@ struct NewExpenseView: View {
             .padding(15)
         }
           .navigationTitle("\(editTransaction == nil ? "Add" : "Edit") Transcation")
-        .background(.gray.opacity(0.15))
-        .toolbar {
+          .background(.gray.opacity(0.15))
+          .toolbar {
             ToolbarItem(placement: .topBarTrailing) {
                 Button("Save", action: save)
                     .tint(appTint)
             }
-        }
-        .onAppear(perform: {
-            if let editTransaction {
-                title = editTransaction.title
-                remarks = editTransaction.remarks
-                amount = editTransaction.amount
-                dateAdded = editTransaction.dateAdded
-                if let category = editTransaction.rawCategory {
-                    self.category = category
-                }
-                if let tint = editTransaction.tint {
-                    self.tint = tint
-                }
-            }
-        })
+          }
+          .onAppear {
+              if let editTransaction {
+                  title = editTransaction.title
+                  remarks = editTransaction.remarks
+                  amount = editTransaction.amount
+                  dateAdded = editTransaction.dateAdded
+                  if let category = editTransaction.rawCategory {
+                      self.category = category
+                  }
+                  if let tint = editTransaction.tint {
+                      self.tint = tint
+                  }
+              }
+          }
     }
     
     /// Save Data
@@ -191,6 +191,6 @@ struct NewExpenseView: View {
 
 #Preview {
     NavigationStack {
-        NewExpenseView()
+        TransactionView()
     }
 }

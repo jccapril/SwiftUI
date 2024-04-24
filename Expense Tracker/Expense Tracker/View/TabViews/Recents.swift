@@ -18,7 +18,6 @@ struct Recents: View {
     @State private var showDateFilterView: Bool = false
     /// For Animation
     @Namespace private var animation
-    @Query(sort: [SortDescriptor(\Transaction.dateAdded, order: .reverse)], animation: .snappy) private var transactions: [Transaction ]
     var body: some View {
         GeometryReader {
             /// For Animation Purpose
@@ -39,36 +38,22 @@ struct Recents: View {
                             })
                             .hSpacing(.leading)
                             
-                            // CardView
-                            CardView(income: 2310, expense: 4550)
-   
-                            // Custom Segmented Control
-                            CustomSegementControl()
-                                .padding(.bottom, 10)
-                             
-                            // TransactionCardView
-                            ForEach(transactions.filter({ $0.category == selectedCategory.rawValue })) { transaction in
-                                NavigationLink {
-                                    NewExpenseView(editTransaction: transaction )
-                                } label: {
-                                    TransactionCardView(transaction: transaction)
+                            FilterTransactionView(startDate: startDate, endDate: endDate) { transactions in
+                                // CardView
+                                CardView(income: total(transactions, category: .income), expense: total(transactions, category: .expense))
+       
+                                // Custom Segmented Control
+                                CustomSegementControl()
+                                    .padding(.bottom, 10)
+                                 
+                                // TransactionCardView
+                                ForEach(transactions.filter({ $0.category == selectedCategory.rawValue })) { transaction in
+                                    NavigationLink(value: transaction) {
+                                        TransactionCardView(transaction: transaction)
+                                    }
                                 }
-
                             }
-//                            ForEach(sampleTransactions.filter({ $0.category == selectedCategory.rawValue })) { transaction in
-//                                SwipeAction(cornerRadius: 10) {
-//                                    TransactionCardView(transaction: transaction)
-//                                } actions: {
-//                                    Action(tint: .red, icon: "trash.fill") {
-//                                        withAnimation(.easeInOut) {
-//                                            
-//                                        }
-//                                    }
-//                                }
-//                            }
-                            
-                           // TransactionCardView(transaction: transaction)
-                            
+ 
                         } header: {
                             HeaderView(size)
                         }
@@ -79,6 +64,9 @@ struct Recents: View {
                 .background(.gray.opacity(0.15))
                 .blur(radius: showDateFilterView ? 8 : 0)
                 .disabled(showDateFilterView)
+                .navigationDestination(for: Transaction.self) { transaction in
+                    TransactionView(editTransaction: transaction)
+                }
             }
             .overlay {
                 if showDateFilterView {
@@ -118,7 +106,7 @@ struct Recents: View {
             Spacer(minLength: 0)
             
             NavigationLink {
-                NewExpenseView()
+                TransactionView()
             } label: {
                 Image(systemName: "plus")
                     .font(.title3)

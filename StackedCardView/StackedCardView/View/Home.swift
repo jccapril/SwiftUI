@@ -11,9 +11,10 @@ struct Home: View {
     var body: some View {
         VStack {
             
-            StackedCards(items: items, stackedDisplayCount: 1,itemHeight: 70) {  item in
+            StackedCards(items: items, stackedDisplayCount: 2, opacityDisplayCount: 0,itemHeight: 70) {  item in
                 CardView(item)
             }
+            .padding(.bottom, 20)
             
             BottomActionBar()
         }
@@ -22,27 +23,33 @@ struct Home: View {
     
     @ViewBuilder
     func CardView(_ item: Item) -> some View {
-        HStack(spacing: 12) {
-            Image(item.logo)
-                .resizable()
-                .aspectRatio(contentMode: .fill)
-                .frame(width: 40, height: 40)
-            
-            VStack(alignment: .leading, spacing: 4) {
-                Text(item.title)
-                    .font(.callout)
-                    .fontWeight(.bold)
+        if item.logo.isEmpty {
+            Rectangle()
+                .fill(.clear)
+        }else {
+            HStack(spacing: 12) {
+                Image(item.logo)
+                    .resizable()
+                    .aspectRatio(contentMode: .fill)
+                    .frame(width: 40, height: 40)
                 
-                Text(item.description)
-                    .font(.caption)
-                    .lineLimit(1)
+                VStack(alignment: .leading, spacing: 4) {
+                    Text(item.title)
+                        .font(.callout)
+                        .fontWeight(.bold)
+                    
+                    Text(item.description)
+                        .font(.caption)
+                        .lineLimit(1)
+                }
+                .frame(maxWidth: .infinity, alignment: .leading)
             }
-            .frame(maxWidth: .infinity, alignment: .leading)
+            .padding(10)
+            .frame(maxHeight: .infinity)
+            .background(.ultraThinMaterial)
+            .clipShape(.rect(cornerRadius: 20))
         }
-        .padding(10)
-        .frame(maxHeight: .infinity)
-        .background(.ultraThinMaterial)
-        .clipShape(.rect(cornerRadius: 20))
+
     }
     /// Bottom Action Bar
     @ViewBuilder

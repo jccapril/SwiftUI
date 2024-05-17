@@ -16,6 +16,7 @@ struct Item: Identifiable {
 
 
 var items: [Item] = [
+    Item(logo: "", title: ""),
     Item(logo: "Wechat", title: "Wechat"),
     Item(logo: "QQ", title: "QQ"),
     Item(logo: "Sina", title: "Sina"),
